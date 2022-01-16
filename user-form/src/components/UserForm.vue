@@ -4,11 +4,19 @@
     <MyInput
       name="Username"
       :rules="{ required: true, min: 5 }"
+      :value="username.value"
+      @update="update"
+    />
+    <MyInput
+      name="Password"
+      :rules="{ required: true, min: 8 }"
+      :value="password.value"
+      @update="update"
     />
     <MyButton
       background="darkslateblue"
       color="red"
-      disabled="false"
+      :disabled="valid"
     />
   </div>
 </template>
@@ -22,6 +30,24 @@ export default {
   components: {
     MyButton,
     MyInput
+  },
+  data() {
+    return {
+      valid: true,
+      username: {
+        value: 'user',
+        valid: false
+      },
+      password: {
+        value: 'pass',
+        valid: false
+      }
+    }
+  },
+  methods: {
+    update({name, value}) {
+      this[name].value = value
+    }
   }
 }
 </script>
