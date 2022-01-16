@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1>User Form</h1>
+    <MyInput
+      name="Username"
+    />
     <MyButton
       background="darkslateblue"
       color="red"
@@ -12,10 +15,12 @@
 <script>
 
 import MyButton from './MyButton.vue'
+import MyInput from './MyInput.vue'
 
 export default {
   components: {
-    MyButton
+    MyButton,
+    MyInput
   }
 }
 </script>
