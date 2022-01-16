@@ -1,10 +1,22 @@
 <template>
-  <h1>User Form</h1>
+  <div>
+    <h1>User Form</h1>
+    <MyButton
+      background="darkslateblue"
+      color="red"
+      disabled="false"
+    />
+  </div>
 </template>
 
 <script>
-export default {
 
+import MyButton from './MyButton.vue'
+
+export default {
+  components: {
+    MyButton
+  }
 }
 </script>
 
