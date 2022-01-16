@@ -3,6 +3,7 @@
     <h1>User Form</h1>
     <MyInput
       name="Username"
+      :rules="{ required: true, min: 5 }"
     />
     <MyButton
       background="darkslateblue"

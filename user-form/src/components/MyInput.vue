@@ -2,10 +2,11 @@
   <div>
     <div class="label">
       <label :for="name">{{ name }}</label>
+      <div class="error">{{ error }}</div>
     </div>
     <input
       :id="name"
-      :name="name"
+      v-model="value"
     />
   </div>
 </template>
@@ -16,6 +17,30 @@ export default {
     name: {
       type: String,
       required: true
+    },
+    rules: {
+      // min: number
+      // required: boolean
+      type: Object,
+      default() {
+        return {}
+      }
+    }
+  },
+  data() {
+    return {
+      value: ''
+    }
+  },
+  computed: {
+    error() {
+      if (this.rules.required && this.value.length === 0) {
+        return 'Value is required'
+      }
+      if (this.rules.min > this.value.length) {
+        return `The min length is ${ this.rules.min }`
+      }
+      return ''
     }
   }
 }
