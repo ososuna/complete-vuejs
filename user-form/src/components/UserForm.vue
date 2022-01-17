@@ -5,12 +5,14 @@
       name="Username"
       :rules="{ required: true, min: 5 }"
       :value="username.value"
+      :error="username.error"
       @update="update"
     />
     <MyInput
       name="Password"
       :rules="{ required: true, min: 8 }"
       :value="password.value"
+      :error="password.error"
       @update="update"
     />
     <MyButton
@@ -45,8 +47,9 @@ export default {
     }
   },
   methods: {
-    update({name, value}) {
+    update({ name, value, error }) {
       this[name].value = value
+      this[name].error = error
     }
   }
 }
