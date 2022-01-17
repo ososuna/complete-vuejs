@@ -1,25 +1,28 @@
 <template>
   <div>
     <h1>User Form</h1>
-    <MyInput
-      name="Username"
-      :rules="{ required: true, min: 5 }"
-      :value="username.value"
-      :error="username.error"
-      @update="update"
-    />
-    <MyInput
-      name="Password"
-      :rules="{ required: true, min: 8 }"
-      :value="password.value"
-      :error="password.error"
-      @update="update"
-    />
-    <MyButton
-      background="darkslateblue"
-      color="red"
-      :disabled="valid"
-    />
+    <form @submit.prevent="submit">
+      <MyInput
+        name="Username"
+        :rules="{ required: true, min: 5 }"
+        :value="username.value"
+        :error="username.error"
+        @update="update"
+      />
+      <MyInput
+        name="Password"
+        :rules="{ required: true, min: 8 }"
+        type="password"
+        :value="password.value"
+        :error="password.error"
+        @update="update"
+      />
+      <MyButton
+        background="darkslateblue"
+        color="white"
+        :disabled="!valid"
+      />
+    </form>
   </div>
 </template>
 
@@ -35,14 +38,13 @@ export default {
   },
   data() {
     return {
-      valid: true,
       username: {
         value: 'user',
-        valid: false
+        error: ''
       },
       password: {
         value: 'pass',
-        valid: false
+        error: ''
       }
     }
   },
@@ -50,11 +52,19 @@ export default {
     update({ name, value, error }) {
       this[name].value = value
       this[name].error = error
+      console.log(this.valid);
+    },
+    submit($event) {
+      console.log($event);
+    }
+  },
+  computed: {
+    valid() {
+      return (
+        !this.username.error &&
+        !this.password.error
+      )
     }
   }
 }
 </script>
-
-<style>
-
-</style>

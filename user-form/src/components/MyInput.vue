@@ -6,6 +6,7 @@
     </div>
     <input
       :id="name"
+      :type="type"
       :value="value"
       @input="input"
     />
@@ -14,6 +15,7 @@
 
 <script>
 export default {
+  emits: ['update'],
   props: {
     name: {
       type: String,
@@ -29,6 +31,10 @@ export default {
       default() {
         return {}
       },
+    },
+    type: {
+      type: String,
+      default: 'text'
     },
     value: {
       type: String,

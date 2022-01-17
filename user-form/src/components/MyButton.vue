@@ -1,7 +1,7 @@
 <template>
   <button
     :style="{ background, color }"
-    :disabled="valid"
+    :disabled="disabled"
   >Button
   </button>
 </template>
@@ -17,11 +17,6 @@ export default {
     },
     disabled: {
       type: Boolean
-    }
-  },
-  data() {
-    return {
-      valid: true
     }
   }
 }
