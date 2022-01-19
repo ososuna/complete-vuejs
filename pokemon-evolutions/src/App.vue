@@ -1,16 +1,23 @@
 <template>
-  <div class="card">
+<div>
+  <div
+    class="card"
+    v-for="pokemon in pokemons"
+    :key="pokemon.id"
+  >
     <div class="title">
-      Title 
+      {{ pokemon.name }}
     </div>
     <div class="content">
-      Content
+      <img :src="pokemon.sprite" :alt="pokemon.name">
     </div>
     <div class="description">
-      Description
+      <div v-for="type in pokemon.types" :key="type">
+         {{ type }}
+      </div>
     </div>
-    <button @click="fetchData">Fetch</button>
   </div>
+</div>
 </template>
 
 <script>
@@ -53,6 +60,9 @@ export default {
 </script>
 
 <style scoped>
+.cards {
+  display: flex;
+}
 .card {
   border: 1px solid silver;
   border-radius: 8px;
