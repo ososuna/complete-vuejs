@@ -38,15 +38,16 @@ export default {
       const resp = await Promise.all(
         ids.map(id => api.get(`pokemon/${ id }`))
       )
-      console.log(resp);
       this.pokemons = resp.map( resp => ({
         id: resp.data.id,
         name: resp.data.name,
         sprite: resp.data.sprites.front_shiny,
         types: resp.data.types.map( type => type.type.name )
       }))
-    console.log(this.pokemons);
     }
+  },
+  created() {
+    this.fetchData();
   }
 }
 </script>
