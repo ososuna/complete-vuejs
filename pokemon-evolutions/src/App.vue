@@ -24,24 +24,28 @@ const api = axios.create({
   }
 })
 
+const ids =  [1, 4, 7]
+
 export default {
   name: 'App',
   data(){
     return {
-      pokemon: null
+      pokemons: []
     }
   },
   methods: {
     async fetchData() {
-      const { data } = await api.get('pokemon/1')
-      console.log(data)
-      this.pokemon = {
-        id: data.id,
-        name: data.name,
-        sprite: data.sprites.front_shiny,
-        types: data.types.map( type => type.type.name )
-      }
-      console.log( this.pokemon )
+      const resp = await Promise.all(
+        ids.map(id => api.get(`pokemon/${ id }`))
+      )
+      console.log(resp);
+      this.pokemons = resp.map( resp => ({
+        id: resp.data.id,
+        name: resp.data.name,
+        sprite: resp.data.sprites.front_shiny,
+        types: resp.data.types.map( type => type.type.name )
+      }))
+    console.log(this.pokemons);
     }
   }
 }
