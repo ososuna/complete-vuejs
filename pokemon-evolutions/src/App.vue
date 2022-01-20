@@ -1,21 +1,42 @@
 <template>
 <div>
-  <Card
-    v-for="pokemon in pokemons"
-    :key="pokemon.id"
-  >
-  <template v-slot:title>
-    {{ pokemon.name }}
-  </template>
-  <template v-slot:content>
-    <img :src="pokemon.sprite" :alt="pokemon.name">
-  </template>
-  <template v-slot:description>
-    <div v-for="type in pokemon.types" :key="type">
-      {{ type }}
-    </div>
-  </template>
-  </Card>
+  <div class="cards">
+    <Card
+      v-for="pokemon in pokemons"
+      :key="pokemon.id"
+      @click="fetchEvolutions(pokemon)"
+    >
+    <template v-slot:title>
+      {{ pokemon.name }}
+    </template>
+    <template v-slot:content>
+      <img :src="pokemon.sprite" :alt="pokemon.name">
+    </template>
+    <template v-slot:description>
+      <div v-for="type in pokemon.types" :key="type">
+        {{ type }}
+      </div>
+    </template>
+    </Card>
+  </div>
+  <div class="cards">
+    <Card
+      v-for="pokemon in evolutions"
+      :key="pokemon.id"
+    >
+    <template v-slot:title>
+      {{ pokemon.name }}
+    </template>
+    <template v-slot:content>
+      <img :src="pokemon.sprite" :alt="pokemon.name">
+    </template>
+    <template v-slot:description>
+      <div v-for="type in pokemon.types" :key="type">
+        {{ type }}
+      </div>
+    </template>
+    </Card>
+  </div>
 </div>
 </template>
 
@@ -41,24 +62,30 @@ export default {
   },
   data(){
     return {
-      pokemons: []
+      pokemons: [],
+      evolutions: []
     }
   },
   methods: {
-    async fetchData() {
+    async fetchData(ids) {
       const resp = await Promise.all(
         ids.map(id => api.get(`pokemon/${ id }`))
       )
-      this.pokemons = resp.map( resp => ({
+      return resp.map( resp => ({
         id: resp.data.id,
         name: resp.data.name,
         sprite: resp.data.sprites.front_shiny,
         types: resp.data.types.map( type => type.type.name )
       }))
+    },
+    async fetchEvolutions(pokemon) {
+      this.evolutions = await this.fetchData(
+        [pokemon.id+1, pokemon.id+2]
+       )
     }
   },
-  created() {
-    this.fetchData();
+  async created() {
+    this.pokemons = await this.fetchData(ids)
   }
 }
 </script>
