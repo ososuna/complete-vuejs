@@ -9,7 +9,7 @@
 
 <script>
 
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, watch, watchEffect } from 'vue'
 
 export default {
   name: 'App',
@@ -34,7 +34,24 @@ export default {
       return count.value + numbers.a + numbers.b
     })
 
-     return {
+    watchEffect(() => {
+      console.log( numbers.a )
+    })
+
+    watch(numbers, (newVal) => {
+      console.log( newVal )
+      console.log (`a: ${newVal.a}. b: ${newVal.b}`)
+    })
+
+    // If you want to call it immediatly when the component is rendered as well everytime it changes
+    // watch(numbers, (newVal) => {
+    //   console.log( newVal )
+    //   console.log (`a: ${newVal.a}. b: ${newVal.b}`)
+    // }, {
+    //   immediate: true
+    // })
+
+    return {
       count,
       increase,
       increment,
