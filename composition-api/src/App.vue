@@ -1,19 +1,23 @@
 <template>
-  <div>
-    <img alt="Vue logo" src="./assets/logo.png">
-    <div>{{ msg }}</div>
-  </div>
+  <button @click="increment">{{ count }}</button>
 </template>
 
 <script>
 
+import { ref } from 'vue'
+
 export default {
   name: 'App',
   setup() {
-    const msg = 'Hello World'
+    const count = ref(0)
+
+    const increment = () => {
+      count.value++
+    }
 
     return {
-      msg
+      count,
+      increment
     }
   }
 }
@@ -27,5 +31,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+button {
+  height: 200px;
+  width: 200px;
+  font-size: 40px; 
 }
 </style>
