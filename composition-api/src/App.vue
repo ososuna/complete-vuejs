@@ -1,15 +1,29 @@
 <template>
+<div>
   <button @click="increment">{{ count }}</button>
+  <button @click="increase('a')">{{ numbers.a }}</button>
+  <button @click="increase('b')">{{ numbers.b }}</button>
+</div>
 </template>
 
 <script>
 
-import { ref } from 'vue'
+import { ref, reactive  } from 'vue'
 
 export default {
   name: 'App',
   setup() {
+    // ref -> number, string
     const count = ref(0)
+    // reactive -> {}
+    const numbers = reactive({
+      a: 0,
+      b: 0
+    })
+
+    const increase = (n) => {
+      numbers[n]++
+    }
 
     const increment = () => {
       count.value++
@@ -17,7 +31,9 @@ export default {
 
     return {
       count,
-      increment
+      increase,
+      increment,
+      numbers
     }
   }
 }
