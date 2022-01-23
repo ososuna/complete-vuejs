@@ -1,7 +1,7 @@
 <template>
 <div>
   <Card
-    v-for="post in store.state.posts"
+    v-for="post in filteredPosts"
     :key="post.id"
   >
     <template v-slot:title>
@@ -17,13 +17,12 @@
       />
     </template>
   </Card>
-  {{ currentTag }}
 </div>
 </template>
 
 <script>
 
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import { store } from '@/model/Store.js'
 
@@ -38,17 +37,24 @@ export default {
     Controls
   },
   setup() {
-
     const currentTag = ref()
 
     const setHashtag = (hashtag) => {
       currentTag.value = hashtag
     }
 
+    const filteredPosts = computed(() => {
+      if (!currentTag.value) {
+        return store.state.posts
+      }
+      return store.state.posts.filter(
+        post => post.hashtags.includes(currentTag.value)
+      )
+    })
+
     return {
-      currentTag,
-      setHashtag,
-      store
+      filteredPosts,
+      setHashtag
     }
   }
 }
