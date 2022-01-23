@@ -12,6 +12,17 @@ class Store {
   setHashtag(tag) {
     this.state.currentTag = tag
   }
+
+  incrementLike(post) {
+    const thePost = this.state.posts.find(
+      x => x.id === post.id
+    )
+
+    if (!thePost) {
+      return
+    }
+    thePost.likes++
+  }
 }
 
  export const store = new Store()
