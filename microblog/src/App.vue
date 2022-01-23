@@ -13,7 +13,6 @@
     <template v-slot:description>
       <Controls
         :post="post"
-        @setHashtag="setHashtag"
       />
     </template>
   </Card>
@@ -22,7 +21,7 @@
 
 <script>
 
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 
 import { store } from '@/model/Store.js'
 
@@ -31,30 +30,23 @@ import Controls from '@/components/Controls'
 
 export default {
   name: 'App',
-  emits: ['setHashtag'],
   components: {
     Card,
     Controls
   },
   setup() {
-    const currentTag = ref()
-
-    const setHashtag = (hashtag) => {
-      currentTag.value = hashtag
-    }
 
     const filteredPosts = computed(() => {
-      if (!currentTag.value) {
+      if (!store.state.currentTag) {
         return store.state.posts
       }
       return store.state.posts.filter(
-        post => post.hashtags.includes(currentTag.value)
+        post => post.hashtags.includes(store.state.currentTag)
       )
     })
 
     return {
-      filteredPosts,
-      setHashtag
+      filteredPosts
     }
   }
 }

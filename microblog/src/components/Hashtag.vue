@@ -8,16 +8,19 @@
 </template>
 
 <script>
+
+import { store } from '@/model/Store'
+
 export default {
   props: {
     hashtag: {
       type: String
     }
   },
-  setup(props, context) {
+  setup(props) {
     
     const setHashtag = () => {
-      context.emit('setHashtag', props.hashtag)
+      store.setHashtag(props.hashtag)
     }
 
     return {
