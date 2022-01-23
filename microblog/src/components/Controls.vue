@@ -6,6 +6,7 @@
     v-for="hashtag in post.hashtags"
     :key="hashtag"
     :hashtag="hashtag"
+    @setHashtag="setHashtag"
   />
 </div>
 </template>
@@ -24,8 +25,15 @@ export default {
       required: true
     }
   },
-  setup(props) {
-    console.log( props )
+  setup(props, context) {
+
+    const setHashtag = (hashtag) => {
+      context.emit('setHashtag', hashtag)
+    }
+
+    return {
+      setHashtag
+    }
   }
 }
 </script>

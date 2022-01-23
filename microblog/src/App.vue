@@ -11,13 +11,19 @@
       {{ post.content }} 
     </template>
     <template v-slot:description>
-      <Controls :post="post" />
+      <Controls
+        :post="post"
+        @setHashtag="setHashtag"
+      />
     </template>
   </Card>
+  {{ currentTag }}
 </div>
 </template>
 
 <script>
+
+import { ref } from 'vue';
 
 import { store } from '@/model/Store.js'
 
@@ -26,12 +32,22 @@ import Controls from '@/components/Controls'
 
 export default {
   name: 'App',
+  emits: ['setHashtag'],
   components: {
     Card,
     Controls
   },
   setup() {
+
+    const currentTag = ref()
+
+    const setHashtag = (hashtag) => {
+      currentTag.value = hashtag
+    }
+
     return {
+      currentTag,
+      setHashtag,
       store
     }
   }
