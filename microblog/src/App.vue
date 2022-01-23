@@ -1,5 +1,9 @@
 <template>
 <div>
+  <input
+    :value="currentTag"
+    @input="setHashtag"
+  >
   <Card
     v-for="post in filteredPosts"
     :key="post.id"
@@ -36,17 +40,14 @@ export default {
   },
   setup() {
 
-    const filteredPosts = computed(() => {
-      if (!store.state.currentTag) {
-        return store.state.posts
-      }
-      return store.state.posts.filter(
-        post => post.hashtags.includes(store.state.currentTag)
-      )
-    })
+    const setHashtag = ($evt) => {
+      store.setHashtag($evt.target.value)
+    }
 
     return {
-      filteredPosts
+      setHashtag,
+      currentTag: computed( () => store.state.currentTag ),
+      filteredPosts: computed( () => store.filteredPosts )
     }
   }
 }
