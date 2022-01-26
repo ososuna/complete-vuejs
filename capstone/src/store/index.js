@@ -1,12 +1,10 @@
 import { createStore } from 'vuex'
+import albums from '@/modules/albums/store'
+import photos from '@/modules/photos/store'
 
 export default createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
+    albums,
+    photos
   }
 })
