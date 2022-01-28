@@ -5,7 +5,11 @@ export const getAlbums = async({ commit }) => {
   commit( 'setAlbums', data )
 }
 
-export const getByAlbum = async({ commit }, album ) => {
+export const getByAlbum = async({ state, commit }, album ) => {
+  if (state.cache[album.id]) {
+    commit( 'setPhotos', state.cache[album.id], album.id )
+    return
+  }
   const { data } = await albumsApi.get(`photos?album=${ album.id }`)
-  commit( 'setPhotos', data )
+  commit( 'setPhotos', data, album.id )
 }

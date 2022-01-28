@@ -1,4 +1,5 @@
 export default () => ({
   albums: [],
-  photos: []
+  photos: [],
+  cache: {}
 })
