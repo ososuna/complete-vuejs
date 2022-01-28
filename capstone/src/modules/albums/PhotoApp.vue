@@ -11,11 +11,7 @@
     />
   </template>
   <template v-slot:content>
-    <img
-      v-for="photo in photos"
-      :key="photo.id"
-      :src="photo.thumbnailUrl"
-    />
+    <router-view></router-view>
   </template>
 </Layout>
 </template>

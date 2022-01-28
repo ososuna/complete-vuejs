@@ -3,7 +3,13 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    component: () => import(/* webpackChunkName: "Auth Layout" */ '@/modules/albums/views/PhotoApp'),
+    component: () => import(/* webpackChunkName: "PhotoApp" */ '@/modules/albums/PhotoApp'),
+    children: [
+      {
+        path: 'albums/:id',
+        component: () => import(/* webpackChunkName: "PhotoView" */ '@/modules/albums/views/PhotoView')
+      }
+    ]
   }
 ]
 
