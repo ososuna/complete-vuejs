@@ -11,7 +11,11 @@
     />
   </template>
   <template v-slot:content>
-    Content
+    <img
+      v-for="photo in photos"
+      :key="photo.id"
+      :src="photo.thumbnailUrl"
+    />
   </template>
 </Layout>
 </template>
@@ -33,14 +37,15 @@ export default {
   },
   setup() {
 
-    const { getAlbums, albums } = useAlbums()
+    const { getAlbums, albums, photos } = useAlbums()
 
     onMounted( async() => {
       await getAlbums()
     })
 
     return {
-      albums
+      albums,
+      photos
     }
   }
 }

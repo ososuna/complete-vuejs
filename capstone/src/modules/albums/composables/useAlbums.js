@@ -9,9 +9,16 @@ const useAlbums = () => {
     return resp
   }
 
+  const getByAlbum = async( album ) => {
+    const resp = await store.dispatch( 'albums/getByAlbum', { album } )
+    return resp
+  }
+
   return {
     getAlbums,
-    albums: computed(()=>store.getters['albums/getAlbums'])
+    getByAlbum,
+    albums: computed(()=>store.getters['albums/getAlbums']),
+    photos: computed(()=>store.getters['albums/getPhotos'])
   }
 }
 
