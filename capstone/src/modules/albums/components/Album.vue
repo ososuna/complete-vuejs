@@ -6,8 +6,6 @@
 
 <script>
 
-import useAlbums from '@/modules/albums/composables/useAlbums'
-
 export default {
   name: 'Album',
   props: {
@@ -17,19 +15,6 @@ export default {
       type: Object,
       required: true
     }
-  },
-  setup(props) {
-    
-    const { getByAlbum } = useAlbums()
-
-    const click = async() => {
-      await getByAlbum( props.album )
-    }
-
-    return {
-      click
-    }
-
   }
 }
 </script>

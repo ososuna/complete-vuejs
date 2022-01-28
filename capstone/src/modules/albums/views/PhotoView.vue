@@ -10,12 +10,22 @@
 
 <script>
 
+import { watchEffect } from 'vue'
+import { useRoute } from 'vue-router'
+
 import useAlbums from '@/modules/albums/composables/useAlbums'
 
 export default {
   setup() {
     
-    const { photos } = useAlbums()
+    const route = useRoute() 
+    const { getByAlbum, photos } = useAlbums()
+
+    watchEffect(() => {
+      const id = route.params.id
+      if (!id) return
+      getByAlbum(id)
+    })
 
     return {
       photos
