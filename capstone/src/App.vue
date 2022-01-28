@@ -4,12 +4,11 @@
     Header
   </template>
   <template v-slot:sidebar>
-    <div
+    <Album
       v-for="album in albums"
       :key="album.id"
-    >
-    {{ album.title }}
-    </div>
+      :album="album"
+    />
   </template>
   <template v-slot:content>
     Content
@@ -21,19 +20,22 @@
 
 import { onMounted } from 'vue'
 
+import Album from '@/modules/albums/components/Album'
 import Layout from '@/modules/shared/components/Layout'
+
 import useAlbums from '@/modules/albums/composables/useAlbums'
 
 export default {
   name: 'App',
   components: {
+    Album,
     Layout
   },
   setup() {
 
     const { getAlbums, albums } = useAlbums()
 
-    onMounted(async() => {
+    onMounted( async() => {
       await getAlbums()
     })
 
