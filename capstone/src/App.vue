@@ -19,17 +19,10 @@
 
 <script>
 
-import { ref, onMounted } from 'vue'
-import Layout from '@/modules/shared/components/Layout.vue'
+import { onMounted } from 'vue'
 
-const axios = require('axios')
-
-const api = axios.create({
-  baseURL: 'https://jsonplaceholder.typicode.com/',
-  headers: {
-    "Access-Control-Allow-Origin": "*"
-  }
-})
+import Layout from '@/modules/shared/components/Layout'
+import useAlbums from '@/modules/albums/composables/useAlbums'
 
 export default {
   name: 'App',
@@ -38,11 +31,10 @@ export default {
   },
   setup() {
 
-    const albums = ref([])
+    const { getAlbums, albums } = useAlbums()
 
     onMounted(async() => {
-      const { data } = await api.get('albums')
-      albums.value = data
+      await getAlbums()
     })
 
     return {
