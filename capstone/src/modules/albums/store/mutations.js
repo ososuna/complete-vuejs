@@ -3,5 +3,5 @@ export const setAlbums = ( state, albums ) => {
 }
 
 export const setPhotos = ( state, photos ) => {
-  state.photos = photos
+  state.photos = photos.splice(0, 100)
 }
